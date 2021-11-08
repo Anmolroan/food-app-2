@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+       #navbar{
+           display: flex;
+       }
+       input{
+width: 400px;
+margin-left: 100px;
+height: 30px;
+margin-top: 20px;
+       }
+       #search{
+           border: solid;
+           background-color: aquamarine;
+           vertical-align: bottom;
+           padding-top: 4px;
+       }
+       #menu{
+          color: brown;
+       
+          font-size: 18px;
+margin-top: 20px;
+margin-left: 180px;
+       }
+       #Login{
+        color: brown;
+         
+          font-size: 18px;
+margin-top: 20px;
+margin-left: 100px;
+       }
+       #navbar{
+width: 100%;
+background-color: chocolate;
+       }
+       #foodbox{
+           display: grid;
+           grid-template-columns: 20% 20% 20% 20%;
+           border: solid;
+           gap: 5%;
+           margin-top: 20px;
+       }
+       #foodbox>div>img{
+           width: 100%;
+       }
+       #cart{
+        color: brown;
+         
+         font-size: 18px;
+margin-top: 20px;
+margin-left: 50px;
+       }
+    </style>
+</head>
+<body>
+    <div id="container"> 
+        <div id="navbar">
+            <img src="https://assets-global.cpcdn.com/assets/logo_circle-b64d2213e198178ddebdc070777b8a499069aa570a6aa12244a441482ae5ed92.png">
+    <img src="https://assets-global.cpcdn.com/assets/logo_text-368daae18951c011f6ec999fcff08f7dd386c2673b7f0e4cda58227138c6b300.png">
+            <div id=""><input><span class="material-icons " id="search">
+                search
+                </span></div>
+            <div id="menu"><a href="menu.html">Menu</a></div>
+            <div id="Login"><a href="login.html">LogIn/Sign-Up </a></div>
+            <div id="cart"><a href="cart.html">Cart</a></div>
+        </div> 
+        <div id="foodbox">
+
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    async function show(){
+        let res=await fetch (`https://www.themealdb.com/api/json/v1/1/filter.php?c=Chicken`)
+ let data = await res.json()
+append(data.meals)
+console.log(data.meals)
+    }
+    function append(data){
+        data.forEach(el=> {
+            
+       
+        var div=document.createElement("div");
+        var img=document.createElement("img");
+        img.src=el.strMealThumb;
+        var h4=document.createElement("h4");
+        var p1=document.createElement("h4");
+        p1.innerHTML="Price" +" "+el.idMeal;
+        var addbutton=document.createElement("button");
+        addbutton.onclick=()=>{
+            alert(el.strMeal);
+            if(localStorage.getItem("foodcart")==null){
+                localStorage.setItem("foodcart",JSON.stringify([]))
+            }
+            var foodcart=JSON.parse( localStorage.getItem("foodcart"));
+            foodcart.push(el);
+            localStorage.setItem("foodcart",JSON.stringify(foodcart) )
+        }
+        addbutton.innerHTML="Add to cart"
+        h4.innerHTML=el.strMeal;
+        div.append(img,h4,p1,addbutton);
+        var foodbox=document.getElementById("foodbox");
+        foodbox.append(div)
+    });
+        
+    }
+    show()
+</script>

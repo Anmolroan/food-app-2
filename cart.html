@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+       #navbar{
+           display: flex;
+       }
+       input{
+width: 400px;
+margin-left: 100px;
+height: 30px;
+margin-top: 20px;
+       }
+       #search{
+           border: solid;
+           background-color: aquamarine;
+           vertical-align: bottom;
+           padding-top: 4px;
+       }
+       #menu{
+          color: brown;
+       
+          font-size: 18px;
+margin-top: 20px;
+margin-left: 180px;
+       }
+       #Login{
+        color: brown;
+         
+          font-size: 18px;
+margin-top: 20px;
+margin-left: 100px;
+       }
+       #navbar{
+width: 100%;
+background-color: chocolate;
+       }
+       #container{
+           background-color: crimson;
+         
+       }
+       #foodbox{
+          width: 600px;
+         padding-left: 30px;
+           gap: 5%;
+           margin-top: 60px;
+           margin: auto;
+           background-color: coral;
+           height: 800px;
+           overflow: scroll;
+           border-radius: 20%;
+       
+       }
+       #foodbox>div>img{
+           width: 40%;
+           border-radius: 50%;
+       }
+       #cart{
+        color: brown;
+         
+         font-size: 18px;
+margin-top: 20px;
+margin-left: 50px;
+       }
+       #flexbox{
+           display: flex;
+       }
+#checkout{
+
+    width: 300px;
+    height: 60px;
+    margin-top: 400px;
+    margin-left: 60px;
+    margin-left: 100px;
+}
+#checkout>button{
+    width: 200px;
+    height: 60px;
+    background-color: darkcyan;
+    font-size: 20px;
+   
+    
+}
+    </style>
+</head>
+<body>
+    <div id="container"> 
+        <div id="navbar">
+            <img src="https://assets-global.cpcdn.com/assets/logo_circle-b64d2213e198178ddebdc070777b8a499069aa570a6aa12244a441482ae5ed92.png">
+    <img src="https://assets-global.cpcdn.com/assets/logo_text-368daae18951c011f6ec999fcff08f7dd386c2673b7f0e4cda58227138c6b300.png">
+    <div id=""><input><span class="material-icons " id="search">
+        search
+        </span></div>
+            <div id="menu"><a href="menu.html">Menu</a></div>
+            <div id="Login"><a href="login.html">LogIn/Sign-Up </a></div>
+            <div id="cart"><a href="cart.html">Cart</a></div>
+        </div> 
+        <div id="flexbox">
+        <div id="foodbox">
+
+        </div>
+        <div id="checkout"> 
+          <button id="checkbtn">Checkout</button>
+        </div>
+    </div>
+    </div>
+</body>
+</html>
+<script>
+    async function show(){
+//         let res=await fetch (`https://www.themealdb.com/api/json/v1/1/filter.php?c=beef`)
+//  let data = await res.json()
+var foodcart=JSON.parse( localStorage.getItem("foodcart"));
+append(foodcart)
+
+    }
+    function append(data){
+        data.forEach(el=> {
+            
+       
+        var div=document.createElement("div");
+        var img=document.createElement("img");
+        img.src=el.strMealThumb;
+        var h4=document.createElement("h4");
+        var p1=document.createElement("h4");
+        p1.innerHTML="Price" +" "+el.idMeal;
+     
+        
+       
+        h4.innerHTML=el.strMeal;
+        div.append(img,h4,p1);
+        var foodbox=document.getElementById("foodbox");
+        foodbox.append(div)
+    });
+        
+    }
+    show()
+    var num=0;
+    function orderisAccepted(){
+        if(num==0){
+            alert("Your order is accepted");
+            num++;
+        }
+       
+       
+    }
+    num1=0;
+    function orderiscooked(){
+        if(num1==0){
+            alert(" Your order is being cooked ");
+            num1++;
+        }
+       
+       
+    }
+    num2=0;
+    function orderisready(){
+        if(num2==0){
+            alert(" Your order is ready");
+            num2++;
+        }
+    }
+    num3=0;
+    function outfordel(){
+        if(num3==0){
+            alert("Order out for delivery");
+            num3++;
+            var foodbox=document.getElementById("foodbox");
+          foodbox.style.display="none";
+          alert("Thanks for ordering from us");
+          
+        }
+       
+       
+    }
+    var checkout=document.getElementById("checkbtn");
+    checkout.onclick=()=>{
+       setInterval(orderisAccepted,3000)
+       setInterval(orderiscooked,8000)
+       setInterval(orderisready,10000)
+       setInterval(outfordel,12000)
+    }
+</script>
